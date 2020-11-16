@@ -8,6 +8,7 @@ import { unHash } from "../utils/password-encrypt";
 })
 export class Tab1Page {
   userName: string = JSON.parse(localStorage.name);
+  sex: string = JSON.parse(localStorage.sex);
 
   constructor() {}
 }

@@ -8,18 +8,25 @@ import { environment } from "src/environments/environment";
 export class RetrieveUserService {
   constructor(private http: HttpClient) {}
 
-  retrireveUser(token: string): Promise<any> {
+  retrireveUser(token: string, id: string): Promise<any> {
     const httpOptions = {
       headers: new HttpHeaders({
         Authorization: `Bearer ${token}`,
       }),
     };
 
-    return this.http
-      .get(`${environment.apiUrl}/users`, httpOptions)
-      .toPromise()
-      .then((body: any) => {
-        return body;
-      });
+    return token !== null
+      ? this.http
+          .get(`${environment.apiUrl}/users`, httpOptions)
+          .toPromise()
+          .then((body: any) => {
+            return body;
+          })
+      : this.http
+          .get(`${environment.apiUrl}/users/${id}`)
+          .toPromise()
+          .then((body: any) => {
+            return body;
+          });
   }
 }

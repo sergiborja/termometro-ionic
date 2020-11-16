@@ -16,20 +16,17 @@ export class Tab3Page {
     this.chartLabels = [];
     mood.length = 14;
     mood.map((mood) => {
+      mood.date = "today";
       this.chartLabels.push(mood.date);
       this.chartData[0].data.push(mood.score);
     });
   }
 
-  chartData: ChartDataSets[] = [{ data: [], label: "Stock Price" }];
+  chartData: ChartDataSets[] = [{ data: [] }];
   chartLabels: Label[];
 
   chartOptions = {
     responsive: true,
-    title: {
-      display: true,
-      text: "Bla bla",
-    },
     pan: {
       enabled: true,
       mode: "xy",
@@ -37,6 +34,9 @@ export class Tab3Page {
     zoom: {
       enabled: true,
       mode: "xy",
+    },
+    legend: {
+      display: false,
     },
   };
 
@@ -51,10 +51,4 @@ export class Tab3Page {
   showLegend = false;
 
   stock = "AAPL";
-
-  changeLabels() {
-    for (var i = 0; i < this.chartLabels.length; i++) {
-      this.chartLabels[i] = "Today";
-    }
-  }
 }
