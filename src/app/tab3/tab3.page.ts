@@ -3,6 +3,8 @@ import { Component } from "@angular/core";
 import { ChartDataSets } from "chart.js";
 import { Color, Label } from "ng2-charts";
 import { environment } from "src/environments/environment";
+// import moment from 'moment'
+import "moment/locale/es";
 
 @Component({
   selector: "app-tab3",
@@ -10,13 +12,17 @@ import { environment } from "src/environments/environment";
   styleUrls: ["tab3.page.scss"],
 })
 export class Tab3Page {
+  allDates: string[] = [];
+
   constructor() {
     const mood = JSON.parse(localStorage.getItem("mood"));
     this.chartData[0].data = [];
     this.chartLabels = [];
     mood.length = 14;
     mood.map((mood) => {
-      mood.date = "today";
+      mood.date = mood.date[0] + mood.date[1] + mood.date[2] + mood.date[3];
+
+      this.allDates.push(mood.date);
       this.chartLabels.push(mood.date);
       this.chartData[0].data.push(mood.score);
     });
@@ -32,7 +38,7 @@ export class Tab3Page {
       mode: "xy",
     },
     zoom: {
-      enabled: true,
+      enabled: false,
       mode: "xy",
     },
     legend: {
@@ -51,4 +57,16 @@ export class Tab3Page {
   showLegend = false;
 
   stock = "AAPL";
+
+  changeData(goTo) {
+    if (goTo === "5") {
+      let auxLabels = [];
+      auxLabels = auxLabels.concat(auxLabels, this.allDates);
+      auxLabels.reverse();
+      auxLabels.length = 5;
+      this.chartLabels = auxLabels.reverse();
+    } else {
+      this.chartLabels = this.allDates;
+    }
+  }
 }

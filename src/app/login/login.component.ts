@@ -24,7 +24,7 @@ export class Login implements OnInit {
 
     this.authService.getToken(email, password).then((tokenObj) => {
       this.retrieveUserService
-        .retrireveUser(tokenObj.token)
+        .retrireveUser(tokenObj.token, undefined)
         .then((body: any) => {
           console.log(body);
           localStorage.token = tokenObj.token;
